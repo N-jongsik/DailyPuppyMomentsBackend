@@ -7,25 +7,32 @@ import com.example.dpm.todo.dto.TodoDto;
 import com.example.dpm.todo.model.TodoEntity;
 
 @Service
-public class TodoService {
+public interface TodoService {
+	public TodoDto get(int todoId);
+	public int AddTodo(TodoDto dto);
+	public void modify(TodoDto dto);
+	public void remove(int todoId);
+	
 	 // Entity to DTO
-    public static TodoDto toDto(TodoEntity todoEntity) {
+    default TodoDto toDto(TodoEntity todoEntity) {
         return TodoDto.builder()
                 .todoId(todoEntity.getTodoId())
                 .memberId(todoEntity.getMember().getMember_id())
-                .content(todoEntity.getContent())
-                .dueData(todoEntity.getDueData())
+                .title(todoEntity.getTitle())
+                .content(todoEntity.getContent())	
+                .dueDate(todoEntity.getDueDate())
                 .status(todoEntity.isStatus())
                 .build();
     }
 
     // DTO to Entity
-    public static TodoEntity toEntity(TodoDto todoDTO, MemberEntity member) {
+    default TodoEntity toEntity(TodoDto todoDTO, MemberEntity member) {
         return TodoEntity.builder()
                 .todoId(todoDTO.getTodoId())
                 .member(member)
+                .title(todoDTO.getTitle())
                 .content(todoDTO.getContent())
-                .dueData(todoDTO.getDueData())
+                .dueDate(todoDTO.getDueDate())
                 .status(todoDTO.isStatus())
                 .build();
     }

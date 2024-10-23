@@ -7,9 +7,14 @@ import com.example.dpm.puppy.dto.PuppyDto;
 import com.example.dpm.puppy.model.PuppyEntity;
 
 @Service
-public class PuppyService {
+public interface PuppyService {
+	public PuppyDto get(int puppyId);
+	public int AddPuppyInfo(PuppyDto dto);
+	public void modify(PuppyDto dto);
+	public void remove(int puppyId);
+	
 	 // Entity to DTO
-    public static PuppyDto toDto(PuppyEntity puppyEntity) {
+    default PuppyDto toDto(PuppyEntity puppyEntity) {
         return PuppyDto.builder()
                 .puppyId(puppyEntity.getPuppyId())
                 .memberId(puppyEntity.getMember().getMember_id()) // Extract memberId
@@ -20,7 +25,7 @@ public class PuppyService {
     }
 
     // DTO to Entity
-    public static PuppyEntity toEntity(PuppyDto puppyDTO, MemberEntity member) {
+    default PuppyEntity toEntity(PuppyDto puppyDTO, MemberEntity member) {
         return PuppyEntity.builder()
                 .puppyId(puppyDTO.getPuppyId())
                 .member(member) // MemberEntity is required here

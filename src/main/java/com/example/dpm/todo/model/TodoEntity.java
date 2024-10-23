@@ -27,10 +27,16 @@ public class TodoEntity {
     private MemberEntity member; // Reference to Member entity
 
     @Column(nullable = false)
+    private String title; // Task title (제목 추가)
+    
+    @Column(nullable = false)
     private String content; // Task content
 
     @Column(nullable = false)
-    private LocalDate dueData; // Due date
+    private LocalDate dueDate; // Due date
 
     private boolean status; // Task status
+    
+    
+    
 }
