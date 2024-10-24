@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.dpm.member.model.MemberEntity;
+import com.example.dpm.puppy.model.PuppyImgEntity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,8 +28,10 @@ public class MissionEntity {
     @JoinColumn(name = "member_id")
     private MemberEntity member; // Reference to Member entity
 
-    private String img; //사진 경로로 저장
-
     @Column(nullable = false)
     private LocalDate missionDate; // Mission date
+    
+    @OneToOne
+    @JoinColumn(name = "mission_img_id", nullable = false )
+    private MissionImgEntity img; // 강아지 사진
 }
