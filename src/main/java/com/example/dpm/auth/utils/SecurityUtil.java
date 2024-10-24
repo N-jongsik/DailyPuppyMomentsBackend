@@ -8,24 +8,25 @@ import com.example.dpm.exception.CustomException;
 import com.example.dpm.exception.ErrorCode;
 
 public class SecurityUtil {
-    private SecurityUtil() {}
+	private SecurityUtil() {
+	}
 
-    public static Long getCurrentUserId() {
+	public static Long getCurrentUserId() {
 
-        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (authentication == null) {
-            throw new CustomException(ErrorCode.UNAUTHORIZED);
-        }
+		if (authentication == null) {
+			throw new CustomException(ErrorCode.UNAUTHORIZED);
+		}
 
-        Long userId;
-        System.out.println("#SecurityUtil_userId: ");
-        if (authentication.getPrincipal() instanceof UserPrincipal userPrincipal) {
-            userId = userPrincipal.getId();
-        } else {
-            throw new CustomException(ErrorCode.BAD_REQUEST);
-        }
+		Long userId;
+		System.out.println("#SecurityUtil_userId: ");
+		if (authentication.getPrincipal() instanceof UserPrincipal userPrincipal) {
+			userId = userPrincipal.getId();
+		} else {
+			throw new CustomException(ErrorCode.BAD_REQUEST);
+		}
 
-        return (Long) userId;
-    }
+		return (Long) userId;
+	}
 }
