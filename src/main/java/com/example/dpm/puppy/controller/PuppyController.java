@@ -1,5 +1,6 @@
 package com.example.dpm.puppy.controller;
 
+import java.io.IOException;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -10,9 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.dpm.puppy.dto.PuppyDto;
+import com.example.dpm.puppy.model.PuppyImgEntity;
+import com.example.dpm.puppy.service.PuppyImgService;
 import com.example.dpm.puppy.service.PuppyService;
 import com.example.dpm.todo.dto.TodoDto;
 
@@ -24,6 +29,10 @@ import lombok.RequiredArgsConstructor;
 public class PuppyController {
 	final PuppyService puppyService;
 	
+	final PuppyImgService puppyImgService;
+	
+	private static final String FOLDER_PATH = "c:\\images\\"; 
+	
 	@GetMapping("/mypage/puppy/{puppy_id}")
     public ResponseEntity<PuppyDto> get(@PathVariable (name = "puppy_id") int puppyId) {
         try {
@@ -34,7 +43,20 @@ public class PuppyController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // 404 Not Found
         }
     }
-
+	
+	//이미지 저장
+	@PostMapping("/puppy/img")
+	   public ResponseEntity<String> uploadImage(@RequestPart(value = "image") MultipartFile image) {
+        try {
+            PuppyImgEntity imgEntity = puppyImgService.uploadImage(image);
+            return ResponseEntity.status(HttpStatus.CREATED).body(imgEntity.getImgId().toString());
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Image upload failed: " + e.getMessage());
+        }
+    }
+	
+	//하나 자체를 생성
 	@PostMapping("/puppy")
 	public ResponseEntity<Map<String, Integer>> register(@RequestBody PuppyDto puppyDto){
 		try {

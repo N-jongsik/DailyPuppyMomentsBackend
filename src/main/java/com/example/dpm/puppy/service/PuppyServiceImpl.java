@@ -3,13 +3,15 @@ package com.example.dpm.puppy.service;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.dpm.member.model.MemberEntity;
 import com.example.dpm.member.repository.MemberRepository;
 import com.example.dpm.puppy.dto.PuppyDto;
 import com.example.dpm.puppy.model.PuppyEntity;
+import com.example.dpm.puppy.model.PuppyImgEntity;
+import com.example.dpm.puppy.repository.PuppyImgRepository;
 import com.example.dpm.puppy.repository.PuppyRepository;
-import com.example.dpm.todo.model.TodoEntity;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class PuppyServiceImpl implements PuppyService{
 	private final PuppyRepository puppyRepository;
 	private final MemberRepository memberRepository;
+	private final PuppyImgRepository puppyImgRepository;
 	
 	@Override //한마리 정보 조회
 	public PuppyDto get(int puppyId) {
@@ -26,12 +29,19 @@ public class PuppyServiceImpl implements PuppyService{
 		return toDto(puppy);
 	}
 
+	@Transactional
 	@Override
 	public int AddPuppyInfo(PuppyDto dto) {
 		Long memberId = dto.getMemberId();
 		Optional<MemberEntity> memberOptional = memberRepository.findById(memberId);
-		MemberEntity member = memberOptional.orElseThrow(() -> new RuntimeException("Member not found")); // 오류 처리 추가
-		PuppyEntity puppyEntity = toEntity(dto, member);
+		MemberEntity member = memberOptional.orElseThrow();
+//				-> new RuntimeException("Member not found")); // 오류 처리 추가
+		
+		PuppyImgEntity puppyImgEntity = puppyImgRepository.findById(dto.getImgId())
+				.orElseThrow(()-> new RuntimeException("img not found"));
+		
+		PuppyEntity puppyEntity = toEntity(dto, member, puppyImgEntity);
+		
 		puppyRepository.save(puppyEntity);
 		return puppyEntity.getPuppyId();
 	}

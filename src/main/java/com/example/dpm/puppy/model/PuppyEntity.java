@@ -32,7 +32,10 @@ public class PuppyEntity {
 
     private LocalDate birth; // Birthdate
     
-    private String file; // 강아지 사진
+    
+    @OneToOne
+    @JoinColumn(name = "puppy_img_id", nullable = false )
+    private PuppyImgEntity img; // 강아지 사진
 
     //@OneToMany(mappedBy = "puppy") // PuppyWeightEntity와의 관계
     private int weightID; // 여러 개의 weight를 가질 수 있음

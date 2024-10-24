@@ -27,7 +27,7 @@ public class TodoEntity {
     private MemberEntity member; // Reference to Member entity
 
     @Column(nullable = false)
-    private String title; // Task title (제목 추가)
+    private String title; // Task title (제목 추가) 필요없음 시간 남으면 빼기
     
     @Column(nullable = false)
     private String content; // Task content
