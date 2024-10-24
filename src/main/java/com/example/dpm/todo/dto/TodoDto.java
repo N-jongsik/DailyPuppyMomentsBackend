@@ -14,8 +14,7 @@ import java.time.LocalDate;
 public class TodoDto {
     private int todoId;
     private Long memberId; // Member reference by memberId
-    private String title;
     private String content;
-    private LocalDate dueDate;
+    private LocalDate dueData;
     private boolean status;
 }

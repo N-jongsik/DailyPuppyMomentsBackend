@@ -1,42 +1,42 @@
 package com.example.dpm.post.service;
 
-import org.springframework.stereotype.Service;
+import java.io.IOException;
+import java.util.List;
 
-import com.example.dpm.member.model.MemberEntity;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.example.dpm.post.dto.PageRequestDto;
+import com.example.dpm.post.dto.PageResponseDto;
 import com.example.dpm.post.dto.PostDto;
-import com.example.dpm.post.model.PostEntity;
 
-@Service
-public class PostService {
-	 // Entity to DTO
-    public static PostDto toDto(PostEntity postEntity) {
-        return PostDto.builder()
-                .postId(postEntity.getPostId())
-                .memberId(postEntity.getMember().getMember_id()) // Extract memberId
-                .title(postEntity.getTitle())
-                .content(postEntity.getContent())
-                .postDate(postEntity.getPostDate())
-                .img(postEntity.getImg())
-                .tagId(postEntity.getTagId())
-                .emoji(postEntity.getEmoji())
-                .totalLikeHeart(postEntity.getTotalLikeHeart())
-                .myLikeHeart(postEntity.isMyLikeHeart())
-                .build();
-    }
+public interface PostService {
 
-    // DTO to Entity
-    public static PostEntity toEntity(PostDto postDTO, MemberEntity member) {
-        return PostEntity.builder()
-                .postId(postDTO.getPostId())
-                .member(member) // You need to pass MemberEntity separately
-                .title(postDTO.getTitle())
-                .content(postDTO.getContent())
-                .postDate(postDTO.getPostDate())
-                .img(postDTO.getImg())
-                .tagId(postDTO.getTagId())
-                .emoji(postDTO.getEmoji())
-                .totalLikeHeart(postDTO.getTotalLikeHeart())
-                .myLikeHeart(postDTO.isMyLikeHeart())
-                .build();
-    }
+	public PostDto get(Integer postId); // 게시물 조회
+
+	public Integer create(PostDto dto); // 게시물 생성
+	
+	public void modify(PostDto dto); // 게시물 수정
+
+	public void remove(Integer postId); // 게시물 삭제
+
+	public PageResponseDto<PostDto> getList(PageRequestDto pageRequestDto);
+
+	public List<PostDto> getAllPosts();// 게시물 리스트 조회
+
+	PageResponseDto<PostDto> getAllMyPosts(Long memberId, PageRequestDto pageRequestDto); // 본인 게시물 조회
+
+	PageResponseDto<PostDto> searchPostsByTitle(String keyword, PageRequestDto pageRequestDto);
+
+	PageResponseDto<PostDto> getAllPostsOrderByDateLatest(PageRequestDto pageRequestDto);
+
+	PageResponseDto<PostDto> getAllPostsOrderByDateEarliest(PageRequestDto pageRequestDto);
+
+	PageResponseDto<PostDto> getAllPostsOrderByLikes(PageRequestDto pageRequestDto);
+
+	PageResponseDto<PostDto> searchPostsByTag(String tagName, PageRequestDto pageRequestDto);
+
+	void toggleLike(Integer postId); // 좋아요 토글
+
+	//Integer create(PostDto dto, MultipartFile image);
+
 }
