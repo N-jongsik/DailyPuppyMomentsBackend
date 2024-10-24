@@ -39,7 +39,7 @@ public class OauthService {
         return webClient.post()
                 .uri("/oauth/token")
                 .body(BodyInserters.fromFormData("grant_type", "authorization_code")
-                        .with("client_id", "d8fabac493f22b719a1bc4f29b44c9d1")
+                        .with("client_id", "72ca8d5c3abeee717446fc97a3749656")
                         .with("redirect_uri", "http://localhost:8080/login/oauth/kakao")
                         .with("code", code))
                 .retrieve()
@@ -57,7 +57,7 @@ public class OauthService {
         Map<String, Object> tokenResponse = webClient.post()
         		.uri("/oauth/token")
                 .body(BodyInserters.fromFormData("grant_type", "refresh_token")
-                        .with("client_id", "d8fabac493f22b719a1bc4f29b44c9d1")
+                        .with("client_id", "72ca8d5c3abeee717446fc97a3749656")
                         .with("refresh_token", refreshToken))
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
@@ -66,6 +66,7 @@ public class OauthService {
         return tokenResponse;  // 새로운 Access Token과 Refresh Token을 포함한 응답
     }	
     
+    //로그아웃
     public Map<String, Object> logout(String accessToken) {
         WebClient webClient = WebClient.builder()
                 .baseUrl("https://kapi.kakao.com")
@@ -82,6 +83,26 @@ public class OauthService {
         System.out.println("&&&&&&&&&&&&&&OauthService_로그아웃 :" + logoutResponse );
         return logoutResponse;  // 로그아웃 결과 응답
     }
+    
+    //사용자 연결 끊기(회원 탈퇴)
+    public Map<String, Object> unlink(String accessToken) {
+        WebClient webClient = WebClient.builder()
+                .baseUrl("https://kapi.kakao.com")
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+                .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)  // Access Token을 Authorization 헤더에 추가
+                .build();
+
+        // 연결 끊기 요청
+        Map<String, Object> unlinkResponse = webClient.post()
+                .uri("/v1/user/unlink")  // 연결 끊기 API 엔드포인트
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
+                .block();
+
+        System.out.println("&&&&&&&&&&&&&&OauthService_연결 끊기 :" + unlinkResponse);
+        return unlinkResponse;  // 연결 끊기 결과 응답
+    }
+
     
     public String loginWithKakao(String accessToken, String refreshToken, HttpServletResponse response) {
         System.out.println("#OauthService: 또여기????");
@@ -103,9 +124,4 @@ public class OauthService {
         tokenResponseDto.setRefreshToken(refreshToken);
         return JWTToken;  // TokenResponseDto 객체 반환
     }    
-    
-    public MemberDto UserInfo(String accessToken, String refreshToken, HttpServletResponse response) {
-    	MemberDto memberDto = kakaoOauthService.getUserProfileByToken(accessToken, refreshToken);
-    	return memberDto;
-    }
 }
