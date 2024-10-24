@@ -2,6 +2,8 @@ package com.example.dpm.mission.model;
 
 import java.time.LocalDate;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.example.dpm.member.model.MemberEntity;
 
 import jakarta.persistence.*;
@@ -25,7 +27,7 @@ public class MissionEntity {
     @JoinColumn(name = "member_id")
     private MemberEntity member; // Reference to Member entity
 
-    private String filePath;
+    private String img; //사진 경로로 저장
 
     @Column(nullable = false)
     private LocalDate missionDate; // Mission date

@@ -20,7 +20,7 @@ public interface PuppyService {
                 .memberId(puppyEntity.getMember().getMember_id()) // Extract memberId
                 .name(puppyEntity.getName())
                 .birth(puppyEntity.getBirth())
-                .weight(puppyEntity.getWeight())
+                .weightId(puppyEntity.getWeightID())
                 .build();
     }
 
@@ -31,7 +31,7 @@ public interface PuppyService {
                 .member(member) // MemberEntity is required here
                 .name(puppyDTO.getName())
                 .birth(puppyDTO.getBirth())
-                .weight(puppyDTO.getWeight())
+                .weightID(puppyDTO.getWeightId())
                 .build();
     }
 }

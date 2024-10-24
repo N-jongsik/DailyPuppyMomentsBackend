@@ -103,4 +103,9 @@ public class OauthService {
         tokenResponseDto.setRefreshToken(refreshToken);
         return JWTToken;  // TokenResponseDto 객체 반환
     }    
+    
+    public MemberDto UserInfo(String accessToken, String refreshToken, HttpServletResponse response) {
+    	MemberDto memberDto = kakaoOauthService.getUserProfileByToken(accessToken, refreshToken);
+    	return memberDto;
+    }
 }
