@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class TodoServiceImpl implements TodoService{
+public class TodoServiceImpl implements TodoService {
 	private final TodoRepository todoRepository;
 	private final MemberRepository memberRepository;
 
@@ -27,20 +27,20 @@ public class TodoServiceImpl implements TodoService{
 	}
 
 	@Override
-    public int AddTodo(TodoDto dto) {
-        Long memberId = dto.getMemberId();
-        Optional<MemberEntity> memberOptional = memberRepository.findById(memberId);
-        MemberEntity member = memberOptional.orElseThrow(() -> new RuntimeException("Member not found")); // 오류 처리 추가
-        TodoEntity todoEntity = toEntity(dto, member);
-        todoRepository.save(todoEntity);
-        return todoEntity.getTodoId(); // 저장된 todoId 반환
-    }
+	public int AddTodo(TodoDto dto) {
+		Long memberId = dto.getMemberId();
+		Optional<MemberEntity> memberOptional = memberRepository.findById(memberId);
+		MemberEntity member = memberOptional.orElseThrow(() -> new RuntimeException("Member not found")); // 오류 처리 추가
+		TodoEntity todoEntity = toEntity(dto, member);
+		todoRepository.save(todoEntity);
+		return todoEntity.getTodoId(); // 저장된 todoId 반환
+	}
 
 	@Override
 	public void modify(TodoDto dto) {
 		Optional<TodoEntity> result = todoRepository.findById(dto.getTodoId());
 		TodoEntity todo = result.orElseThrow();
-		
+
 		todo.setTitle(dto.getTitle());
 		todo.setContent(dto.getContent());
 		todoRepository.save(todo);
@@ -48,16 +48,16 @@ public class TodoServiceImpl implements TodoService{
 
 	@Override
 	public void remove(int todoId) {
-		Optional<TodoEntity> todo = todoRepository.findById(todoId); 
-		if(todo.isPresent()) {
+		Optional<TodoEntity> todo = todoRepository.findById(todoId);
+		if (todo.isPresent()) {
 			todoRepository.deleteById(todoId);
-		}else {
+		} else {
 			throw new RuntimeException("해당 일정이 존재하지 않습니다.");
 		}
 	}
-	
+
 	@Override
-	public List<TodoEntity> findAll(){
+	public List<TodoEntity> findAll() {
 		return todoRepository.findAll();
 	}
 

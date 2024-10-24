@@ -1,9 +1,5 @@
 package com.example.dpm.puppy.model;
 
-import java.time.LocalDate;
-
-import com.example.dpm.member.model.MemberEntity;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,13 +19,12 @@ import lombok.NoArgsConstructor;
 @Table(name = "puppy_image")
 public class PuppyImgEntity {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer imgId;
-	
+
 	private String filePath;
-	
+
 	@OneToOne(mappedBy = "img")
 	private PuppyEntity puppy;
-	
-	
+
 }

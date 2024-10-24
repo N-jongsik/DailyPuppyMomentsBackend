@@ -9,32 +9,24 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-    @ExceptionHandler(CustomException.class)
-    public ResponseEntity<ErrorResponse> handleCustomException(CustomException ex) {
-        logger.error("[CustomException] errCode : " + ex.getErrorCode());
-        logger.error("[CustomException] errMsg : " + ex.getMessage());
-        return new ResponseEntity(
-                new ErrorResponse(ex.getMessage()),
-                ex.getErrorCode().getHttpStatus()
-        );
-    }
+	private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ErrorResponse> handleRuntimeException(RuntimeException ex) {
-        logger.error("[RuntimeException] errMsg : " + ex.getMessage());
-        return new ResponseEntity(
-                new ErrorResponse(ex.getMessage()),
-                HttpStatus.INTERNAL_SERVER_ERROR
-        );
-    }
+	@ExceptionHandler(CustomException.class)
+	public ResponseEntity<ErrorResponse> handleCustomException(CustomException ex) {
+		logger.error("[CustomException] errCode : " + ex.getErrorCode());
+		logger.error("[CustomException] errMsg : " + ex.getMessage());
+		return new ResponseEntity(new ErrorResponse(ex.getMessage()), ex.getErrorCode().getHttpStatus());
+	}
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleException(RuntimeException ex) {
-        logger.error("[Exception] errMsg : " + ex.getMessage());
-        return new ResponseEntity(
-                new ErrorResponse(ex.getMessage()),
-                HttpStatus.INTERNAL_SERVER_ERROR
-        );
-    }
+	@ExceptionHandler(RuntimeException.class)
+	public ResponseEntity<ErrorResponse> handleRuntimeException(RuntimeException ex) {
+		logger.error("[RuntimeException] errMsg : " + ex.getMessage());
+		return new ResponseEntity(new ErrorResponse(ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<ErrorResponse> handleException(RuntimeException ex) {
+		logger.error("[Exception] errMsg : " + ex.getMessage());
+		return new ResponseEntity(new ErrorResponse(ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 }
