@@ -1,5 +1,7 @@
 package com.example.dpm.todo.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.example.dpm.member.model.MemberEntity;
@@ -12,6 +14,7 @@ public interface TodoService {
 	public int AddTodo(TodoDto dto);
 	public void modify(TodoDto dto);
 	public void remove(int todoId);
+	public List<TodoEntity> findAll();
 	
 	 // Entity to DTO
     default TodoDto toDto(TodoEntity todoEntity) {

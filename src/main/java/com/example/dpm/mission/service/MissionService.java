@@ -22,7 +22,6 @@ public interface MissionService {
         return MissionDto.builder()
                 .missionId(missionEntity.getMissionId())
                 .memberId(missionEntity.getMember().getMember_id())
-                .status(missionEntity.isStatus())
                 .missionDate(missionEntity.getMissionDate())
                 .build();
     }
@@ -32,7 +31,6 @@ public interface MissionService {
         return MissionEntity.builder()
                 .missionId(missionDTO.getMissionId())
                 .member(member)
-                .status(missionDTO.isStatus())
                 .missionDate(missionDTO.getMissionDate())
                 .build();
     }
