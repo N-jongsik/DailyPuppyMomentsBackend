@@ -1,10 +1,14 @@
 package com.example.dpm.puppy.service;
 
+import java.io.IOException;
+
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.dpm.member.model.MemberEntity;
 import com.example.dpm.puppy.dto.PuppyDto;
 import com.example.dpm.puppy.model.PuppyEntity;
+import com.example.dpm.puppy.model.PuppyImgEntity;
 
 @Service
 public interface PuppyService {
@@ -25,13 +29,16 @@ public interface PuppyService {
     }
 
     // DTO to Entity
-    default PuppyEntity toEntity(PuppyDto puppyDTO, MemberEntity member) {
-        return PuppyEntity.builder()
+    default PuppyEntity toEntity(PuppyDto puppyDTO, MemberEntity member, PuppyImgEntity puppyImgEntity) {
+       
+    	
+    	return PuppyEntity.builder()
                 .puppyId(puppyDTO.getPuppyId())
                 .member(member) // MemberEntity is required here
                 .name(puppyDTO.getName())
                 .birth(puppyDTO.getBirth())
                 .weightID(puppyDTO.getWeightId())
+                .img(puppyImgEntity)
                 .build();
     }
 }
