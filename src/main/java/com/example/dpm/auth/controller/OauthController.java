@@ -40,6 +40,14 @@ public class OauthController {
 
         String accessToken = (String) tokenResponse.get("access_token");
         String refreshToken = (String) tokenResponse.get("refresh_token");
+        
+     // 응답 헤더에 토큰을 추가
+//        response.setHeader("accessToken", accessToken);
+//        response.setHeader("refreshToken", refreshToken);
+
+        // 리디렉션 URL 설정
+//        String redirectUrl = "http://localhost:5173/";
+//        response.sendRedirect(redirectUrl);
 
         // 응답 객체에 Access Token, Refresh Token 저장
         oauthResponseDto.setAccessToken(accessToken);
@@ -49,10 +57,11 @@ public class OauthController {
         System.out.println("OauthController   " + refreshToken + "code: " + code);
         System.out.println("ffffffffffffffffffffff  " + ResponseEntity.ok(oauthResponseDto));
         
-        String redirectUrl = "http://localhost:5174?accessToken=" + accessToken + "&refreshToken=" + refreshToken;
-        //response.sendRedirect(redirectUrl);
+//        String redirectUrl = "http://localhost:5173?accessToken=" + accessToken + "&refreshToken=" + refreshToken;
+//        response.sendRedirect(redirectUrl);
         return ResponseEntity.status(HttpStatus.OK).body(oauthResponseDto);
     }
+
     
     @PostMapping("/login/oauth/{provider}")
     public String login(@PathVariable("provider") String provider, @RequestBody OauthRequestDto oauthRequestDto,

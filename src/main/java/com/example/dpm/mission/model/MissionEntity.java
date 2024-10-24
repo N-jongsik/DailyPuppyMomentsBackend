@@ -25,7 +25,7 @@ public class MissionEntity {
     @JoinColumn(name = "member_id")
     private MemberEntity member; // Reference to Member entity
 
-    private boolean status; // Whether the mission is completed today
+    private String filePath;
 
     @Column(nullable = false)
     private LocalDate missionDate; // Mission date

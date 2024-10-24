@@ -1,5 +1,6 @@
 package com.example.dpm.todo.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -47,7 +48,17 @@ public class TodoServiceImpl implements TodoService{
 
 	@Override
 	public void remove(int todoId) {
-		todoRepository.deleteById(todoId);
+		Optional<TodoEntity> todo = todoRepository.findById(todoId); 
+		if(todo.isPresent()) {
+			todoRepository.deleteById(todoId);
+		}else {
+			throw new RuntimeException("해당 일정이 존재하지 않습니다.");
+		}
+	}
+	
+	@Override
+	public List<TodoEntity> findAll(){
+		return todoRepository.findAll();
 	}
 
 }

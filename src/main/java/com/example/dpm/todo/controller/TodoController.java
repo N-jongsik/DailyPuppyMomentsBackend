@@ -1,5 +1,6 @@
 package com.example.dpm.todo.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.dpm.todo.dto.TodoDto;
+import com.example.dpm.todo.model.TodoEntity;
 import com.example.dpm.todo.service.TodoService;
 
 import lombok.RequiredArgsConstructor;
@@ -37,7 +39,7 @@ public class TodoController {
         }
     }
     
-    @PostMapping("/calender") //todo등록
+    @PostMapping("") //todo등록
     public ResponseEntity<Map<String, Integer>> register(@RequestBody TodoDto todoDto) {
         System.out.println("TodoController_todoDto: " + todoDto);
         
@@ -51,7 +53,7 @@ public class TodoController {
         }
     }
 
-    @PutMapping("/{todo_id}")
+    @PutMapping("/{todo_id}") //todo수정
     public ResponseEntity<Map<String, String>> modify(@PathVariable (name = "todo_id") int todoId, @RequestBody TodoDto todoDto) {
         try {
             todoDto.setTodoId(todoId);
@@ -63,9 +65,11 @@ public class TodoController {
         }
     }
     
-    @DeleteMapping("/{todo_id}")
-    public ResponseEntity<Map<String, String>> remove(@PathVariable(name = "todo_id") int todoId) {
+    @DeleteMapping("/{todo_id}") //todo삭제
+    public ResponseEntity<Map<String, String>> remove(
+            @PathVariable(name = "todo_id") int todoId) {
         try {
+            // 서비스에서 memberId와 todoId를 사용하여 삭제 진행
             todoService.remove(todoId);
             return ResponseEntity.status(HttpStatus.OK).body(Map.of("delete", "success")); // 200 OK 반환
         } catch (Exception e) {
@@ -73,4 +77,10 @@ public class TodoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 500 Internal Server Error
         }
     }
+    
+    @GetMapping("/list")
+    public List<TodoEntity> getAll(){
+    	return todoService.findAll();
+    }
+
 }

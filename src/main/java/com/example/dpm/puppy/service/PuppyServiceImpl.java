@@ -19,7 +19,7 @@ public class PuppyServiceImpl implements PuppyService{
 	private final PuppyRepository puppyRepository;
 	private final MemberRepository memberRepository;
 	
-	@Override
+	@Override //한마리 정보 조회
 	public PuppyDto get(int puppyId) {
 		Optional<PuppyEntity> result = puppyRepository.findById(puppyId);
 		PuppyEntity puppy = result.orElseThrow();
@@ -36,19 +36,24 @@ public class PuppyServiceImpl implements PuppyService{
 		return puppyEntity.getPuppyId();
 	}
 
-	@Override
+	@Override //몸무게 수정 가능
 	public void modify(PuppyDto dto) {
 		Optional<PuppyEntity> result = puppyRepository.findById(dto.getPuppyId());
 		PuppyEntity puppy = result.orElseThrow();
 		
-		puppy.setBirth(dto.getBirth());
 		puppy.setWeight(dto.getWeight());
 		puppyRepository.save(puppy);
 	}
 
 	@Override
 	public void remove(int puppyId) {
-		puppyRepository.deleteById(puppyId);
+		Optional<PuppyEntity> puppy = puppyRepository.findById(puppyId);
+		if(puppy.isPresent()) {
+			puppyRepository.deleteById(puppyId);
+		}else {
+			throw new RuntimeException("해당 반려견이 존재하지 않습니다.");
+		}
+		
 		
 	}
 
