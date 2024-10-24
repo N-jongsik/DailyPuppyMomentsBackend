@@ -41,7 +41,7 @@ public class PuppyServiceImpl implements PuppyService{
 		Optional<PuppyEntity> result = puppyRepository.findById(dto.getPuppyId());
 		PuppyEntity puppy = result.orElseThrow();
 		
-		puppy.setWeight(dto.getWeight());
+		puppy.setWeightID(dto.getWeightId());
 		puppyRepository.save(puppy);
 	}
 

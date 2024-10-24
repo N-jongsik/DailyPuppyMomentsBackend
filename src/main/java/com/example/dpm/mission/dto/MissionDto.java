@@ -14,6 +14,6 @@ import java.time.LocalDate;
 public class MissionDto {
     private int missionId;
     private Long memberId; // Member reference by memberId
-    private boolean status;
+    private String img;
     private LocalDate missionDate;
 }

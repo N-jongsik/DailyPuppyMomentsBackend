@@ -1,15 +1,16 @@
 package com.example.dpm.puppy.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import com.example.dpm.member.model.MemberEntity;
+import com.example.dpm.puppyweight.model.PuppyWeightEntity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 @Entity
 @Data
@@ -30,6 +31,9 @@ public class PuppyEntity {
     private String name; // Puppy name
 
     private LocalDate birth; // Birthdate
+    
+    private String file; // 강아지 사진
 
-    private double weight; // Weight
+    //@OneToMany(mappedBy = "puppy") // PuppyWeightEntity와의 관계
+    private int weightID; // 여러 개의 weight를 가질 수 있음
 }

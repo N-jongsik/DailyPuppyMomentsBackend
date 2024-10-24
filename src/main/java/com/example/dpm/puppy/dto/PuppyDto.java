@@ -16,5 +16,5 @@ public class PuppyDto {
     private Long memberId; // Decoupled member reference by storing only memberId
     private String name;
     private LocalDate birth;
-    private double weight;
+    private int weightId;
 }

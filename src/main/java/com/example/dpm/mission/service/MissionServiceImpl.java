@@ -2,6 +2,8 @@ package com.example.dpm.mission.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.dpm.member.model.MemberEntity;
+import com.example.dpm.member.repository.MemberRepository;
 import com.example.dpm.mission.dto.MissionDto;
 import com.example.dpm.mission.model.MissionEntity;
 import com.example.dpm.mission.repository.MissionRepository;
@@ -20,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MissionServiceImpl implements MissionService{
 	private final MissionRepository missionRepository;
+	private final MemberRepository memberRepository;
 	
 	private final String FOLDER_PATH = "c:\\images\\";
 
@@ -30,26 +34,43 @@ public class MissionServiceImpl implements MissionService{
 		return toDto(mission);
 	}
 
-//	@Override
-//	public String AddMissionImg(int missionId, MultipartFile image) throws IOException {
-//	    // 파일 저장 경로 생성
-//	    String fileName = image.getOriginalFilename();
-//	    String filePath = FOLDER_PATH + fileName;
-//	    
-//	    // 파일 저장
-//	    File file = new File(filePath);
-//	    image.transferTo(file);
-//	    
-//	    // 미션 가져오기
-//	    Optional<MissionEntity> missionOptional = missionRepository.findById(missionId);
-//	    MissionEntity mission = missionOptional.orElseThrow(() -> new RuntimeException("Mission not found"));
-//
-//	    // 미션 엔티티에 파일 정보 저장 (이미지 파일 경로 등을 저장할 수 있음)
-//	    //mission.setImagePath(filePath); // 미션 엔티티에 이미지 경로 저장
-//	    missionRepository.save(mission);
-//	    
-//	    return "File uploaded and mission updated successfully!";
-//	}
+	@Override
+	public String AddMissionImg(MultipartFile image,MissionDto missionDto) throws IOException {
+		Optional<MemberEntity> memberOpt = memberRepository.findById(missionDto.getMemberId());//멤버 id가져오기
+		MemberEntity member = memberOpt.orElseThrow(() -> new RuntimeException("Member not found"));
+		
+		// 파일 저장 경로 생성
+	    String fileName = image.getOriginalFilename();
+	    String filePath = FOLDER_PATH + fileName;
+	    
+		//MissionEntity missionEntity = toEntity(missionDto, member);
+	    MissionEntity missionEntity = missionRepository.save(MissionEntity.builder()
+	    		.missionId(missionDto.getMissionId())
+	    		.member(member)
+	    		.img(filePath)
+	    		.missionDate(LocalDate.now())
+	    		.build());
+	    
+	    //MissionEntity missionImg = missionRepository.save(missionEntity); // 저장
+
+	    image.transferTo(new File(filePath));
+	    if(image != null) {
+	    	return "File uploaded and mission updated successfully!";
+	    }
+	    
+	    return null;
+	}
+	
+	@Override
+	public byte[] downLoadImageFileSystem(int missionId) throws IOException{
+		MissionEntity mission = missionRepository.findById(missionId).orElseThrow();
+
+		String filePath = mission.getImg();
+
+		System.out.println("download fileData : " + filePath);
+
+		return Files.readAllBytes(new File(filePath).toPath());
+	}
 
 
 	@Override

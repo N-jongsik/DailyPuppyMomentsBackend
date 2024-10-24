@@ -17,15 +17,18 @@ import com.example.dpm.auth.service.KakaoOauthService;
 import com.example.dpm.auth.service.OauthService;
 import com.example.dpm.exception.CustomException;
 import com.example.dpm.exception.ErrorCode;
+import com.example.dpm.member.dto.MemberDto;
 import com.example.dpm.member.service.MemberService;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class OauthController {
     private final OauthService oauthService;
     private final MemberService memberService;
@@ -57,22 +60,51 @@ public class OauthController {
         System.out.println("OauthController   " + refreshToken + "code: " + code);
         System.out.println("ffffffffffffffffffffff  " + ResponseEntity.ok(oauthResponseDto));
         
-//        String redirectUrl = "http://localhost:5173?accessToken=" + accessToken + "&refreshToken=" + refreshToken;
-//        response.sendRedirect(redirectUrl);
+        String redirectUrl = "http://localhost:5173?accessToken=" + accessToken + "&refreshToken=" + refreshToken;
+        response.sendRedirect(redirectUrl);
         return ResponseEntity.status(HttpStatus.OK).body(oauthResponseDto);
     }
 
     
+//    @PostMapping("/login/oauth/{provider}")
+//    public String login(@PathVariable("provider") String provider, @RequestBody OauthRequestDto oauthRequestDto,
+//                                  HttpServletResponse response) {
+//        OauthResponseDto oauthResponseDto = new OauthResponseDto();
+//        String jwtToken = "";
+//        
+//        switch (provider) {
+//            case "kakao":
+//                // loginWithKakao 메서드가 TokenResponseDto 객체를 반환한다고 가정
+//                 jwtToken = oauthService.loginWithKakao(oauthRequestDto.getAccessToken(), oauthRequestDto.getRefreshToken(), response);
+//                 MemberDto memberDto = oauthService.UserInfo(oauthRequestDto.getAccessToken(), oauthRequestDto.getRefreshToken(), response);
+//                break;
+//
+//            default:
+//                // 예외 처리를 추가하여 잘못된 provider 요청에 대한 로그 확인
+//                System.out.println("#OauthController: Provider: " + provider);
+//                System.out.println("#OauthController: AccessToken: " + oauthRequestDto.getAccessToken());
+//                throw new IllegalArgumentException("#OauthController: Unsupported provider: " + provider);
+//        }
+//        
+//        
+//        return ResponseEntity.status(HttpStatus.OK).body(Map<jwtTokenmemberDto>);
+//    }
+    
     @PostMapping("/login/oauth/{provider}")
-    public String login(@PathVariable("provider") String provider, @RequestBody OauthRequestDto oauthRequestDto,
-                                  HttpServletResponse response) {
+    public ResponseEntity<MemberDto> login(
+            @PathVariable("provider") String provider,
+            @RequestBody OauthRequestDto oauthRequestDto,
+            HttpServletResponse response) {
+
         OauthResponseDto oauthResponseDto = new OauthResponseDto();
         String jwtToken = "";
-        
+        MemberDto memberDto = null; // MemberDto를 초기화합니다.
+
         switch (provider) {
             case "kakao":
                 // loginWithKakao 메서드가 TokenResponseDto 객체를 반환한다고 가정
-                 jwtToken = oauthService.loginWithKakao(oauthRequestDto.getAccessToken(), oauthRequestDto.getRefreshToken(), response);
+                jwtToken = oauthService.loginWithKakao(oauthRequestDto.getAccessToken(), oauthRequestDto.getRefreshToken(), response);
+                memberDto = oauthService.UserInfo(oauthRequestDto.getAccessToken(), oauthRequestDto.getRefreshToken(), response);
                 break;
 
             default:
@@ -81,9 +113,13 @@ public class OauthController {
                 System.out.println("#OauthController: AccessToken: " + oauthRequestDto.getAccessToken());
                 throw new IllegalArgumentException("#OauthController: Unsupported provider: " + provider);
         }
-        
-        
-        return jwtToken;
+
+        // jwtToken을 키로, memberDto를 값으로 갖는 Map을 생성합니다.
+        Map<String, MemberDto> responseMap = new HashMap<>();
+        responseMap.put(jwtToken, memberDto); // jwtToken을 키로 사용
+
+        return ResponseEntity.status(HttpStatus.OK).body(memberDto);
     }
+
    
 }
