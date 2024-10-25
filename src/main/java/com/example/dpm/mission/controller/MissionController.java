@@ -40,6 +40,7 @@ public class MissionController {
 	@PostMapping("/mission/img")
 	public ResponseEntity<Integer> uploadImage(@RequestPart(value = "image") MultipartFile image) {
 		try {
+			System.out.println("MissionController: " + image);
 			MissionImgEntity imgEntity = missionImgService.uploadImage(image);
 			return ResponseEntity.status(HttpStatus.CREATED).body(imgEntity.getImgId());
 		} catch (IOException e) {

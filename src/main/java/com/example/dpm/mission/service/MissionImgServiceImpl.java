@@ -19,12 +19,9 @@ public class MissionImgServiceImpl implements MissionImgService {
 
 	@Override
 	public MissionImgEntity uploadImage(MultipartFile image) throws IOException {
+		
 		// 파일 저장 경로 및 파일 이름 설정
 		String filePath = FOLDER_PATH + image.getOriginalFilename();
-
-		// 파일을 지정한 경로에 저장
-		File destinationFile = new File(filePath);
-		image.transferTo(destinationFile); // 파일 저장
 
 		// ImgEntity 생성 및 저장
 		MissionImgEntity missionImgEntity = new MissionImgEntity();
