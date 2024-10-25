@@ -11,13 +11,13 @@ import com.example.dpm.post.dto.PostDto;
 
 public interface PostService {
 
-	public PostDto get(Integer postId); // 게시물 조회
+	public PostDto get(int postId); // 게시물 조회
 
-	public Integer create(PostDto dto); // 게시물 생성
+	public int create(PostDto dto); // 게시물 생성
 	
 	public void modify(PostDto dto); // 게시물 수정
 
-	public void remove(Integer postId); // 게시물 삭제
+	public void remove(int postId); // 게시물 삭제
 
 	public PageResponseDto<PostDto> getList(PageRequestDto pageRequestDto);
 
@@ -35,8 +35,8 @@ public interface PostService {
 
 	PageResponseDto<PostDto> searchPostsByTag(String tagName, PageRequestDto pageRequestDto);
 
-	void toggleLike(Integer postId); // 좋아요 토글
+	void toggleLike(int postId); // 좋아요 토글
 
-	//Integer create(PostDto dto, MultipartFile image);
+	//int create(PostDto dto, MultipartFile image);
 
 }
