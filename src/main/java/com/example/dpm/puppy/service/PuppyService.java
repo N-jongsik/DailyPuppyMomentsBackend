@@ -11,6 +11,7 @@ import com.example.dpm.puppy.model.PuppyEntity;
 import com.example.dpm.puppy.model.PuppyImgEntity;
 import com.example.dpm.puppy.model.PuppyWeightEntity;
 
+
 @Service
 public interface PuppyService {
 	public PuppyDto get(int puppyId);
@@ -40,27 +41,15 @@ public interface PuppyService {
 	        .orElse(null);  // 몸무게 기록이 없을 때 null 처리
 	}
 	// DTO to Entity
-	default PuppyEntity toEntity(PuppyDto puppyDTO, MemberEntity member, PuppyImgEntity puppyImgEntity) {
+//	default PuppyEntity toEntity(PuppyDto puppyDTO, MemberEntity member, PuppyImgEntity puppyImgEntity) {
+//
+//		return PuppyEntity.builder().puppyId(puppyDTO.getPuppyId()).member(member) // MemberEntity is required here
+//				.name(puppyDTO.getName()).birth(puppyDTO.getBirth()).weightID(puppyDTO.getWeightId())
+//				.img(puppyDTO.getImg()).build();
+//	}
 
-		PuppyEntity puppyEntity = PuppyEntity.builder()
-		        .puppyId(puppyDTO.getPuppyId())
-		        .member(member)  // MemberEntity 연결
-		        .name(puppyDTO.getName())
-		        .birth(puppyDTO.getBirth())
-		        .img(puppyImgEntity)  // PuppyImgEntity 연결
-		        .build();
-
-		    // 초기 몸무게가 있을 경우, PuppyWeightEntity 생성 후 연결
-		    if (puppyDTO.getWeight() != null) {
-		        PuppyWeightEntity puppyWeight = PuppyWeightEntity.builder()
-		            .weight(puppyDTO.getWeight())
-		            .puppy(puppyEntity)  // 강아지와 연결
-		            .uploadDate(LocalDate.now())  // 현재 시간으로 기록
-		            .build();
-		        
-		        puppyEntity.getWeights().add(puppyWeight);  // 강아지 엔터티에 몸무게 추가
-		    }
-
-		    return puppyEntity;
+	default PuppyEntity toEntity(PuppyDto puppyDto, MemberEntity member) {
+		return PuppyEntity.builder().puppyId(puppyDto.getPuppyId()).member(member).name(puppyDto.getName())
+				.birth(puppyDto.getBirth()).img(puppyDto.getImg()).weightID(puppyDto.getWeightId()).build();
 	}
 }
