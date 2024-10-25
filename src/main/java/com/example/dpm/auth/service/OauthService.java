@@ -13,6 +13,7 @@ import com.example.dpm.auth.dto.TokenResponseDto;
 import com.example.dpm.exception.CustomException;
 import com.example.dpm.exception.ErrorCode;
 import com.example.dpm.member.dto.MemberDto;
+import com.example.dpm.member.model.MemberEntity;
 import com.example.dpm.member.service.MemberService;
 
 import jakarta.servlet.http.HttpServletResponse;

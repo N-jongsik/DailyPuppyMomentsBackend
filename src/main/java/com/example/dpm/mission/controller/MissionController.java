@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.dpm.member.service.MemberService;
 import com.example.dpm.mission.dto.MissionDto;
 import com.example.dpm.mission.model.MissionEntity;
 import com.example.dpm.mission.model.MissionImgEntity;
@@ -30,6 +31,8 @@ public class MissionController {
 	final MissionService missionService;
 
 	final MissionImgService missionImgService;
+	
+	final MemberService memberService;
 
 	private static final String FOLDER_PATH = "c:\\images\\";
 
@@ -50,6 +53,10 @@ public class MissionController {
 	public ResponseEntity<Map<String, Integer>> register(@RequestBody MissionDto missionDto) {
 		try {
 			int missionId = missionService.AddMissionImg(missionDto);
+			
+			// 로그인한 사용자의 포인트 10점 추가
+            memberService.updatePoint(missionDto.getMemberId());
+
 			Map<String, Integer> response = Map.of("Number", missionId);
 			return ResponseEntity.status(HttpStatus.CREATED).body(response); // 201 Created와 함께 반환
 		} catch (Exception e) {

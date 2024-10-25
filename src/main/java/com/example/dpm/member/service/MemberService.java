@@ -95,5 +95,14 @@ public class MemberService {
 		}
 
 	}
+	
+	@Transactional
+	public void updatePoint(Long memberId) {
+	    MemberEntity memberEntity = memberRepository.findById(memberId)
+	            .orElseThrow(() -> new CustomException(ErrorCode.BAD_REQUEST));
+
+	    memberEntity.setPoint(memberEntity.getPoint() + 10); // 포인트 10점 추가
+	    memberRepository.save(memberEntity); // 업데이트된 엔티티 저장
+	}
 
 }
