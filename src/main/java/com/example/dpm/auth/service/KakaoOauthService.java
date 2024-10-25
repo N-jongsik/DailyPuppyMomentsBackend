@@ -30,21 +30,14 @@ public class KakaoOauthService {
 	public MemberDto getUserProfileByToken(String accessToken, String refreshToken) {
 		Map<String, Object> userAttributesByToken = getUserAttributesByToken(accessToken);
 
-		// refreshToken을 사용하여 기존 회원 정보 조회
-		// MemberDto member = memberService.getMemberDtoFromRefreshToken(refreshToken);
-
-		System.out.println("#KakaoOauthService 1. accessToken: " + accessToken);
-
 		KakaoInfoDto kakaoInfoDto = new KakaoInfoDto(userAttributesByToken);
 
 		MemberDto memberDto = MemberDto.builder().member_id(kakaoInfoDto.getId()).socialId(kakaoInfoDto.getEmail())
 				.nickname(kakaoInfoDto.getNickname()).profile_image(kakaoInfoDto.getProfileImage()).point(0)
 				.attendance(false).is_deleted(false).refreshToken(refreshToken).build();
 
-		System.out.println("#KakaoOauthService 2. memberDto: " + memberDto);
 		MemberEntity memberEntity = memberService.toEntity(memberDto);
 		memberService.save(memberEntity);
-		System.out.println("#KakaoOauthService 3.SAVE : memberService.save done");
 
 		return memberDto;
 	}

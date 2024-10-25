@@ -17,6 +17,5 @@ public class PuppyDto {
 	private String name;
 	private LocalDate birth;
 	private int weightId;
-//	 private int imgId;
 	private String img;
 }

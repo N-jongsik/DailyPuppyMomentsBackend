@@ -23,8 +23,6 @@ import lombok.RequiredArgsConstructor;
 public class PuppyController {
 	final PuppyService puppyService;
 
-	// final PuppyImgService puppyImgService;
-
 	private static final String FOLDER_PATH = "c:\\images\\";
 
 	@GetMapping("/mypage/puppy/{puppy_id}")
@@ -38,24 +36,11 @@ public class PuppyController {
 		}
 	}
 
-	// 이미지 저장
-//	@PostMapping("/puppy/img")
-//	public ResponseEntity<String> uploadImage(@RequestPart(value = "image") MultipartFile image) {
-//		try {
-//			PuppyImgEntity imgEntity = puppyImgService.uploadImage(image);
-//			return ResponseEntity.status(HttpStatus.CREATED).body(imgEntity.getImgId().toString());
-//		} catch (IOException e) {
-//			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-//					.body("Image upload failed: " + e.getMessage());
-//		}
-//	}
-
 	// 하나 자체를 생성
 	@PostMapping("/puppy")
 	public int register(@RequestBody PuppyDto puppyDto) {
 		try {
 			int puppyId = puppyService.AddPuppyInfo(puppyDto);
-			// Map<String, Integer> response = Map.of("Number", puppyId);
 			return puppyId; // 201 Created와 함께 반환
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -75,8 +60,5 @@ public class PuppyController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 500 Internal Server Error
 		}
 	}
-
-	// 강아지 정보를 캘린더로 확인????
-	// 강아지 정보 주기적으로 저장?? put? post?
 
 }

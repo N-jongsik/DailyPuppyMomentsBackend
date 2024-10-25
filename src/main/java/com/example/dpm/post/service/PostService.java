@@ -1,9 +1,6 @@
 package com.example.dpm.post.service;
 
-import java.io.IOException;
 import java.util.List;
-
-import org.springframework.web.multipart.MultipartFile;
 
 import com.example.dpm.post.dto.PageRequestDto;
 import com.example.dpm.post.dto.PageResponseDto;
@@ -36,7 +33,4 @@ public interface PostService {
 	PageResponseDto<PostDto> searchPostsByTag(String tagName, PageRequestDto pageRequestDto);
 
 	void toggleLike(int postId); // 좋아요 토글
-
-	//int create(PostDto dto, MultipartFile image);
-
 }

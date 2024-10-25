@@ -18,18 +18,9 @@ public interface PuppyService {
 
 	// Entity to DTO
 	default PuppyDto toDto(PuppyEntity puppyEntity) {
-		return PuppyDto.builder().puppyId(puppyEntity.getPuppyId()).memberId(puppyEntity.getMember().getMember_id()) // Extract
-																														// memberId
+		return PuppyDto.builder().puppyId(puppyEntity.getPuppyId()).memberId(puppyEntity.getMember().getMember_id())
 				.name(puppyEntity.getName()).birth(puppyEntity.getBirth()).weightId(puppyEntity.getWeightID()).build();
 	}
-
-	// DTO to Entity
-//	default PuppyEntity toEntity(PuppyDto puppyDTO, MemberEntity member, PuppyImgEntity puppyImgEntity) {
-//
-//		return PuppyEntity.builder().puppyId(puppyDTO.getPuppyId()).member(member) // MemberEntity is required here
-//				.name(puppyDTO.getName()).birth(puppyDTO.getBirth()).weightID(puppyDTO.getWeightId())
-//				.img(puppyDTO.getImg()).build();
-//	}
 
 	default PuppyEntity toEntity(PuppyDto puppyDto, MemberEntity member) {
 		return PuppyEntity.builder().puppyId(puppyDto.getPuppyId()).member(member).name(puppyDto.getName())

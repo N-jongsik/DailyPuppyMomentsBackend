@@ -31,12 +31,12 @@ public class MissionEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "member_id")
-	private MemberEntity member; // Reference to Member entity
-
+	private MemberEntity member; 
+	
 	@Column(nullable = false)
-	private LocalDate missionDate; // Mission date
+	private LocalDate missionDate;
 
 	@OneToOne
 	@JoinColumn(name = "mission_img_id", nullable = false)
-	private MissionImgEntity img; // 강아지 사진
+	private MissionImgEntity img; 
 }

@@ -19,48 +19,37 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PuppyWeightServiceImpl implements PuppyWeightService {
 	private final PuppyWeightRepository puppyWeightRepository;
-    private final PuppyRepository puppyRepository;
+	private final PuppyRepository puppyRepository;
 
-    // 몸무게 추가
-    @Transactional
-    @Override
-    public void addWeight(int puppyId, PuppyWeightDto puppyWeightDto) {
-        PuppyEntity puppy = puppyRepository.findById(puppyId)
-            .orElseThrow(() -> new IllegalArgumentException("Invalid puppy ID"));
+	// 몸무게 추가
+	@Transactional
+	@Override
+	public void addWeight(int puppyId, PuppyWeightDto puppyWeightDto) {
+		PuppyEntity puppy = puppyRepository.findById(puppyId)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid puppy ID"));
 
-     // 2. PuppyWeightEntity 생성
-        PuppyWeightEntity puppyWeight = PuppyWeightEntity.builder()
-            .puppy(puppy)
-            .weight(puppyWeightDto.getWeight())
-            .uploadDate(LocalDate.now())
-            .build();
-        
-        puppyWeightRepository.save(puppyWeight);
-    }
+		PuppyWeightEntity puppyWeight = PuppyWeightEntity.builder().puppy(puppy).weight(puppyWeightDto.getWeight())
+				.uploadDate(LocalDate.now()).build();
 
-    // 특정 Puppy의 몸무게 전체 기록 조회
-    @Override
-    @Transactional(readOnly = true)
-    public List<PuppyWeightDto> getAllWeights(int puppyId) {
-        return puppyWeightRepository.findAll().stream()
-            .filter(weight -> weight.getPuppy().getPuppyId() == puppyId)
-            .map(this::toDto)  // Entity -> DTO 변환
-            .collect(Collectors.toList());
-    }
+		puppyWeightRepository.save(puppyWeight);
+	}
 
-    
- // Entity -> DTO 변환
-    public PuppyWeightDto toDto(PuppyWeightEntity weightEntity) {
-        return PuppyWeightDto.builder()
-            .weight(weightEntity.getWeight())
-            .build();
-    }
+	// 특정 Puppy의 몸무게 전체 기록 조회
+	@Override
+	@Transactional(readOnly = true)
+	public List<PuppyWeightDto> getAllWeights(int puppyId) {
+		return puppyWeightRepository.findAll().stream().filter(weight -> weight.getPuppy().getPuppyId() == puppyId)
+				.map(this::toDto) // Entity -> DTO 변환
+				.collect(Collectors.toList());
+	}
 
-    // DTO -> Entity 변환
-    public PuppyWeightEntity toEntity(PuppyWeightDto weightDto, PuppyEntity puppyEntity) {
-        return PuppyWeightEntity.builder()
-            .weight(weightDto.getWeight())
-            .puppy(puppyEntity)
-            .build();
-    }
+	// Entity -> DTO 변환
+	public PuppyWeightDto toDto(PuppyWeightEntity weightEntity) {
+		return PuppyWeightDto.builder().weight(weightEntity.getWeight()).build();
+	}
+
+	// DTO -> Entity 변환
+	public PuppyWeightEntity toEntity(PuppyWeightDto weightDto, PuppyEntity puppyEntity) {
+		return PuppyWeightEntity.builder().weight(weightDto.getWeight()).puppy(puppyEntity).build();
+	}
 }

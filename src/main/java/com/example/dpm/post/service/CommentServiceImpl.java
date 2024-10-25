@@ -45,25 +45,15 @@ public class CommentServiceImpl implements CommentService{
 	public Integer create(CommentDto commentDto) {
 		Optional<MemberEntity> member = memberRepository.findById(commentDto.getMemberId());
 		MemberEntity foundMember = member.orElseThrow();
-		System.out.println("[[CommentService]] foundMember: " + foundMember.toString());
 		
 		Optional<PostEntity> post = postRepository.findById(commentDto.getPostId());
 		PostEntity foundPost = post.orElseThrow();
-		System.out.println("[[CommentService]] foundPost: " + foundPost.toString());
 		
 		CommentEntity commentEntity = toEntity(commentDto, foundMember, foundPost);
-		System.out.println("[[CommentService]] commentEntity: " + commentEntity.getContent());
 		
 		CommentEntity result = commentRepository.save(commentEntity);
-		System.out.println("[[CommentService]] SAVE DB");
 		
 		return result.getCommentId();
-	}
-
-	@Override
-	public void modify(CommentDto commentDto) {
-		// TODO Auto-generated method stub
-		//어쩌지..
 	}
 
 	@Override
@@ -80,17 +70,7 @@ public class CommentServiceImpl implements CommentService{
 	    }
 
 	    commentRepository.delete(comment); // 댓글 삭제
-	    System.out.println("[[CommentService]] Comment deleted: " + commentId);
 	}
-
-
-//	@Override
-//	public List<CommentDto> getAllComments(Integer postId) {
-//		 List<CommentEntity> comments = commentRepository.findByPost_PostId(postId); // 포스트 ID로 댓글 조회
-//		    return comments.stream()
-//		            .map(this::toDto) // CommentEntity를 CommentDto로 변환
-//		            .collect(Collectors.toList()); // 리스트로 수집
-//	}
 	
 	@Override
     public PageResponseDto<CommentDto> getCommentsByPostId(Integer postId, PageRequestDto pageRequestDto) {
@@ -132,11 +112,5 @@ public class CommentServiceImpl implements CommentService{
 	        .content(commentDto.getContent())
 	        .commentDate(commentDto.getCommentDate())
 	        .build();
-	}
-
-	@Override
-	public List<CommentDto> getAllComments(Integer postId) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

@@ -20,6 +20,4 @@ public class TagDto {
     private int tagId; // 태그의 고유 ID
     private String name; // 태그 이름 추가 (예: "technology", "science")
 
-//     PostDto와의 관계 (다대다 관계의 표현)
-//    private List<PostDto> posts;
 }

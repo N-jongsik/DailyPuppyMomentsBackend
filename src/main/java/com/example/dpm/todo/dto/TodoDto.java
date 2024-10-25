@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class TodoDto {
 	private int todoId;
-	private Long memberId; // Member reference by memberId
+	private Long memberId;
 	private String title;
 	private String content;
 	private LocalDate dueDate;
