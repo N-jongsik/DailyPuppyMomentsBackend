@@ -1,9 +1,5 @@
 package com.example.dpm.puppy.controller;
 
-
-import java.io.IOException;
-import java.util.List;
-
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -17,13 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.dpm.puppy.dto.PuppyDto;
-
-import com.example.dpm.puppy.dto.PuppyWeightDto;
-import com.example.dpm.puppy.model.PuppyImgEntity;
-import com.example.dpm.puppy.service.PuppyImgService;
-
 import com.example.dpm.puppy.service.PuppyService;
-import com.example.dpm.puppy.service.PuppyWeightService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -34,8 +24,6 @@ public class PuppyController {
 	final PuppyService puppyService;
 
 	// final PuppyImgService puppyImgService;
-
-	final PuppyWeightService puppyWeightService;
 
 	private static final String FOLDER_PATH = "c:\\images\\";
 
@@ -75,31 +63,20 @@ public class PuppyController {
 		}
 	}
 
-//	@PutMapping("/mypage/puppy/{puppy_id}")
-//	public ResponseEntity<Map<String, String>> modify(@PathVariable(name = "puppy_id") int puppy_Id,
-//			@RequestBody PuppyDto puppyDto) {
-//		try {
-//			puppyDto.setPuppyId(puppy_Id);
-//			puppyService.modify(puppyDto);
-//			return ResponseEntity.status(HttpStatus.OK).body(Map.of("result", "success")); // 200 OK 반환
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 500 Internal Server Error
-//		}
-//	}
-
-	// 몸무게 추가
-	@PostMapping("/puppy/{puppyId}/weight")
-	public ResponseEntity<String> addWeight(@PathVariable(name="puppy_id") int puppyId, @RequestBody PuppyWeightDto puppyWeightDTO) {
-		puppyWeightService.addWeight(puppyId, puppyWeightDTO);
-		return ResponseEntity.ok("Weight added successfully");
+	@PutMapping("/mypage/puppy/{puppy_id}")
+	public ResponseEntity<Map<String, String>> modify(@PathVariable(name = "puppy_id") int puppy_Id,
+			@RequestBody PuppyDto puppyDto) {
+		try {
+			puppyDto.setPuppyId(puppy_Id);
+			puppyService.modify(puppyDto);
+			return ResponseEntity.status(HttpStatus.OK).body(Map.of("result", "success")); // 200 OK 반환
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 500 Internal Server Error
+		}
 	}
 
-	// 특정 Puppy의 전체 몸무게 기록 조회
-	@GetMapping("/puppy/weight/{puppyId}")
-	public ResponseEntity<List<PuppyWeightDto>> getAllWeights(@PathVariable(name="puppy_id") int puppyId) {
-		List<PuppyWeightDto> weights = puppyWeightService.getAllWeights(puppyId);
-		return ResponseEntity.ok(weights);
-	}
+	// 강아지 정보를 캘린더로 확인????
+	// 강아지 정보 주기적으로 저장?? put? post?
 
 }
