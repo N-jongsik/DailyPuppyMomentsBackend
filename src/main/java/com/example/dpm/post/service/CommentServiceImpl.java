@@ -120,6 +120,7 @@ public class CommentServiceImpl implements CommentService{
 	        .postId(commentEntity.getPost().getPostId())        // PostEntity에서 postId 추출
 	        .content(commentEntity.getContent())
 	        .commentDate(commentEntity.getCommentDate())
+	      
 	        .build();
 	}
 	// CommentDto -> CommentEntity 변환	
