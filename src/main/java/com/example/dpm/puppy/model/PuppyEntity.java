@@ -11,7 +11,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,10 +37,13 @@ public class PuppyEntity {
 
 	private LocalDate birth; // Birthdate
 
-	@OneToOne
-	@JoinColumn(name = "puppy_img_id", nullable = false)
-	private PuppyImgEntity img; // 강아지 사진
+//	@OneToOne
+//	@JoinColumn(name = "puppy_img_id", nullable = false)
+//	private PuppyImgEntity img; // 강아지 사진
+
+	private String img;
 
 	// @OneToMany(mappedBy = "puppy") // PuppyWeightEntity와의 관계
+	@Column(nullable = true)
 	private int weightID; // 여러 개의 weight를 가질 수 있음
 }
