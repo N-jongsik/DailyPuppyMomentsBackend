@@ -53,14 +53,14 @@ public class PostServiceImpl implements PostService {
 	private final String FOLDER_PATH = "c:\\images\\"; // 로컬 저장 경로
 
 	@Override
-	public PostDto get(Integer postId) {
+	public PostDto get(int postId) {
 		Optional<PostEntity> result = postRepository.findById(postId);
 		PostEntity post = result.orElseThrow();
 		return toDto(post);
 	}
 
 	@Override
-	public void toggleLike(Integer postId) {
+	public void toggleLike(int postId) {
 		Optional<PostEntity> result = postRepository.findById(postId);
 		PostEntity post = result.orElseThrow();
 
@@ -120,7 +120,7 @@ public class PostServiceImpl implements PostService {
 		postEntity.setEmoji(dto.getEmoji());
 
 		// 이미지 수정
-		if (dto.getImgId() != null) {
+		if (dto.getImgId() != 0) {
 			ImgEntity imgEntity = imgRepository.findById(dto.getImgId())
 					.orElseThrow(() -> new RuntimeException("Image not found"));
 			imgEntity.setFilePath(imgEntity.getFilePath());
@@ -152,7 +152,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public void remove(Integer postId) {
+	public void remove(int postId) {
 		// 게시글이 존재하는지 확인
 		Optional<PostEntity> postEntity = postRepository.findById(postId);
 		if (postEntity.isPresent()) {

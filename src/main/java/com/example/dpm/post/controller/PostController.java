@@ -103,7 +103,7 @@ public class PostController {
 
 	// 게시물 조회
 	@GetMapping("/{postId}")
-	public ResponseEntity<PostDto> getPost(@PathVariable("postId") Integer postId) {
+	public ResponseEntity<PostDto> getPost(@PathVariable("postId") int postId) {
 		PostDto postDto = postService.get(postId);
 		System.out.println("||||||||PostController_get_postTitle: " + postDto.getTitle());
 		return ResponseEntity.ok(postDto); // 게시물 데이터 반환
@@ -111,7 +111,7 @@ public class PostController {
 
 	// 게시물 수정
 	@PutMapping("/{postId}")
-	public ResponseEntity<Void> modifyPost(@PathVariable("postId") Integer postId, @RequestBody PostDto postDto) {
+	public ResponseEntity<Void> modifyPost(@PathVariable("postId") int postId, @RequestBody PostDto postDto) {
 		// 수정하려는 게시글의 ID를 DTO에 설정
 		postDto.setPostId(postId);
 		System.out.println("||||||||PostController_modify_postTitle: " + postDto.getTitle());

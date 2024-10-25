@@ -36,9 +36,9 @@ public class CommentController {
 	// 댓글 생성
 	@PostMapping("/{postId}/comment")
 	public ResponseEntity<Integer> createComment(@Validated @RequestBody CommentDto commentDto, 
-							@PathVariable("postId") Integer postId) {
+							@PathVariable("postId") int postId) {
 		System.out.println("||||||||CommentController_create_postID: " + commentDto.getPostId());
-		Integer commentId = commentService.create(commentDto);
+		int commentId = commentService.create(commentDto);
 		System.out.println("||||||||PostController_create_commentId: " + commentId + ",  postId : " + postId);
 		return ResponseEntity.ok(commentId); // 생성된 게시물 ID 반환
 	}
@@ -46,7 +46,7 @@ public class CommentController {
 	// 댓글 리스트 조회
 	@GetMapping("/{postId}/comment")
 	public ResponseEntity<PageResponseDto<CommentDto>> getPostComments(
-	        @PathVariable("postId") Integer postId,
+	        @PathVariable("postId") int postId,
 	        @ModelAttribute PageRequestDto pageRequestDto) { // PageRequestDto 추가
 
 	    PostDto postDto = postService.get(postId);
@@ -59,7 +59,7 @@ public class CommentController {
 	
 	// 댓글 삭제
 	@DeleteMapping("/{postId}/comment/{commentId}")
-	public ResponseEntity<Void> deleteComment(@PathVariable("postId") Integer postId, @PathVariable("commentId") Integer commentId) {
+	public ResponseEntity<Void> deleteComment(@PathVariable("postId") int postId, @PathVariable("commentId") int commentId) {
 	    commentService.remove(postId, commentId); // 댓글 삭제 서비스 호출
 	    return ResponseEntity.noContent().build(); // 204 No Content 반환
 	}
