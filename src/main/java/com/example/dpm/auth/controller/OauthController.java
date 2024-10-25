@@ -103,6 +103,8 @@ public class OauthController {
 					response);
 			memberDto = oauthService.UserInfo(oauthRequestDto.getAccessToken(), oauthRequestDto.getRefreshToken(),
 					response);
+			// 로그인한 사용자의 포인트 10점 추가
+            memberService.updatePoint(memberDto.getMember_id());
 			break;
 
 		default:
