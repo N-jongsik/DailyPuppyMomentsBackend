@@ -14,16 +14,16 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class PostDto {
-    private Integer postId;
+    private int postId;
     private Long memberId; // Use memberId instead of MemberEntity to decouple
     private String title;
     private String content;
     private LocalDate postDate;
-    private Integer imgId;
+    private int imgId;
     // 태그 필드를 List<TagDto>로 설정
     private List<TagDto> tags;
     private List<CommentDto> comments;
     private String emoji;
-    private Integer totalLikeHeart; // Total likes
+    private int totalLikeHeart; // Total likes
     private boolean myLikeHeart; // User's like status
 }

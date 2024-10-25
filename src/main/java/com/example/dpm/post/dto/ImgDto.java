@@ -10,6 +10,6 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ImgDto {
-	private Integer imgId;
+	private int imgId;
 	private String filePath;
 }
