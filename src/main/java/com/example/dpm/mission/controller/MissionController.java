@@ -87,17 +87,4 @@ public class MissionController {
 		}
 	}
 
-//	@PostMapping("/mission/upload")
-//	public ResponseEntity<?> upload(@RequestPart MultipartFile image, @RequestPart  MissionDto missionDto
-//			) {
-//	    try {
-//	        String responseMessage = missionService.AddMissionImg(image, missionDto);
-//	        return ResponseEntity.status(HttpStatus.OK).body(responseMessage);
-//	    } catch (Exception e) {
-//	        e.printStackTrace();  // 로그에 예외 스택 트레이스를 출력
-//	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-//	                             .body("Error: " + e.getMessage()); // 클라이언트에게 오류 메시지 전송
-//	    }
-//	}
-
 }

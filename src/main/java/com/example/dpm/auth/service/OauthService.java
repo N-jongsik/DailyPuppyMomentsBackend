@@ -63,15 +63,11 @@ public class OauthService {
 		Map<String, Object> logoutResponse = webClient.post().uri("/v1/user/logout").retrieve()
 				.bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {
 				}).block();
-		System.out.println("&&&&&&&&&&&&&&OauthService_로그아웃 :" + logoutResponse);
 		return logoutResponse; // 로그아웃 결과 응답
 	}
 
 	public String loginWithKakao(String accessToken, String refreshToken, HttpServletResponse response) {
-		System.out.println("#OauthService: 또여기????");
 		MemberDto memberDto = kakaoOauthService.getUserProfileByToken(accessToken, refreshToken);
-		System.out.println("#OauthService: access token????" + accessToken);
-		System.out.println("#OauthService: refreshToken????" + refreshToken);
 
 		if (memberDto == null) {
 			throw new CustomException(ErrorCode.UNAUTHORIZED);
@@ -79,8 +75,6 @@ public class OauthService {
 		// 자체적인 JWT 토큰 생성
 		String JWTToken = jwtTokenService.createJWTToken(accessToken, refreshToken,
 				String.valueOf(memberDto.getMember_id()));
-
-		System.out.println("~~~~~~~~~~~~~@@@@@OauthService_JWTToken: " + JWTToken);
 
 		// TokenResponseDto 생성
 		TokenResponseDto tokenResponseDto = new TokenResponseDto();

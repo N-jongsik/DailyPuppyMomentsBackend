@@ -36,8 +36,8 @@ public class PuppyWeightEntity {
     @JoinColumn(name = "puppy_id", nullable = false)
     private PuppyEntity puppy;
 	
-	@PrePersist // 엔티티가 생성될 때 호출
+	@PrePersist
 	public void prePersist() {
-		this.uploadDate = LocalDate.now(); // 현재 시간으로 초기화
+		this.uploadDate = LocalDate.now(); 
 	}
 }

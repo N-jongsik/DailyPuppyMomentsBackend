@@ -48,19 +48,11 @@ public class JwtTokenService implements InitializingBean {
 	@Override
 	public void afterPropertiesSet() {
 		this.key = getKeyFromBase64EncodedKey(encodeBase64SecretKey(secretKey));
-		System.out.println("!!!!!!!!!!!JwtTokenService_key: " + key);
 	}
 
 	public String createJWTToken(String accessToken, String refreshToken, String payload) {
 		return createToken(accessToken, refreshToken, payload, accessTokenExpirationInSeconds);
 	}
-
-//    public String createRefreshToken(){
-//        byte[] array = new byte[7];
-//        new Random().nextBytes(array);
-//        String generatedString = new String(array, StandardCharsets.UTF_8);
-//        return createToken(generatedString, refreshTokenExpirationInSeconds);
-//    }
 
 	public String createToken(String accessToken, String refreshToken, String payload, long expireLength) {
 		Date now = new Date();
@@ -75,8 +67,6 @@ public class JwtTokenService implements InitializingBean {
 		claims.put("profile_image", memberDto.getProfile_image()); // 필요한 경우 카카오 토큰도 포함
 		claims.put("accessToken", accessToken); // 필요한 경우 카카오 토큰도 포함
 		claims.put("refreshToken", refreshToken); // 필요한 경우 카카오 토큰도 포함
-
-		System.out.println("$$$$$$$$$$$$JWTTOken claims: " + claims.toString());
 
 		return Jwts.builder().setClaims(claims) // 사용자 정보 포함
 				.setIssuedAt(now) // 발행 시간
@@ -101,13 +91,13 @@ public class JwtTokenService implements InitializingBean {
 
 			// 토큰의 만료 여부 확인
 			boolean isValid = !claimsJws.getBody().getExpiration().before(new Date());
-			System.out.println("##JwtTokenService Token is valid: " + isValid); // 토큰 유효성 출력
+			System.out.println("JwtTokenService Token is valid: " + isValid); // 토큰 유효성 출력
 			return isValid;
 		} catch (ExpiredJwtException e) {
-			System.out.println("##JwtTokenService Token has expired: " + e.getMessage()); // 만료된 토큰 예외 출력
+			System.out.println("JwtTokenService Token has expired: " + e.getMessage()); // 만료된 토큰 예외 출력
 			return false;
 		} catch (JwtException | IllegalArgumentException exception) {
-			System.out.println("##JwtTokenService Invalid token: " + exception.getMessage()); // 유효하지 않은 토큰 예외 출력
+			System.out.println("JwtTokenService Invalid token: " + exception.getMessage()); // 유효하지 않은 토큰 예외 출력
 			return false;
 		}
 	}
@@ -123,9 +113,4 @@ public class JwtTokenService implements InitializingBean {
 
 		return key;
 	}
-
-//	public String createAccessToken(String valueOf) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 }

@@ -30,17 +30,17 @@ public class TodoEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "member_id")
-	private MemberEntity member; // Reference to Member entity
+	private MemberEntity member; 
 
 	@Column(nullable = false)
-	private String title; // Task title (제목 추가) 필요없음 시간 남으면 빼기
+	private String title; 
 
 	@Column(nullable = false)
-	private String content; // Task content
+	private String content; 
 
 	@Column(nullable = false)
-	private LocalDate dueDate; // Due date
+	private LocalDate dueDate; 
 
-	private boolean status; // Task status
+	private boolean status; 
 
 }

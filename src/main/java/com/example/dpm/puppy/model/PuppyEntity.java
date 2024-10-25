@@ -30,20 +30,15 @@ public class PuppyEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "member_id")
-	private MemberEntity member; // Reference to Member entity
+	private MemberEntity member; 
 
 	@Column(nullable = false)
-	private String name; // Puppy name
+	private String name;
 
-	private LocalDate birth; // Birthdate
-
-//	@OneToOne
-//	@JoinColumn(name = "puppy_img_id", nullable = false)
-//	private PuppyImgEntity img; // 강아지 사진
+	private LocalDate birth; 
 
 	private String img;
 
-	// @OneToMany(mappedBy = "puppy") // PuppyWeightEntity와의 관계
 	@Column(nullable = true)
-	private int weightID; // 여러 개의 weight를 가질 수 있음
+	private int weightID; 
 }

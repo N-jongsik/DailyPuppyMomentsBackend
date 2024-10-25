@@ -1,6 +1,5 @@
 package com.example.dpm.post.controller;
 
-import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -37,9 +36,7 @@ public class CommentController {
 	@PostMapping("/{postId}/comment")
 	public ResponseEntity<Integer> createComment(@Validated @RequestBody CommentDto commentDto, 
 							@PathVariable("postId") int postId) {
-		System.out.println("||||||||CommentController_create_postID: " + commentDto.getPostId());
 		int commentId = commentService.create(commentDto);
-		System.out.println("||||||||PostController_create_commentId: " + commentId + ",  postId : " + postId);
 		return ResponseEntity.ok(commentId); // 생성된 게시물 ID 반환
 	}
 	
@@ -53,7 +50,6 @@ public class CommentController {
 	    // 댓글을 페이지네이션하여 가져오기
 	    PageResponseDto<CommentDto> commentsResponse = commentService.getCommentsByPostId(postId, pageRequestDto);
 
-	    System.out.println("||||||||PostController_get_postTitle: " + postDto.getTitle());
 	    return ResponseEntity.ok(commentsResponse); // 댓글 데이터 반환
 	}
 	

@@ -74,7 +74,6 @@ public class PostServiceImpl implements PostService {
 	public int create(PostDto dto) {
 		Optional<MemberEntity> member = memberRepository.findById(dto.getMemberId());
 		MemberEntity foundMember = member.orElseThrow();
-		System.out.println("[[PostService]] foundMember: " + foundMember.toString());
 
 		// DTO에서 태그 DTO 리스트를 가져와서 TagEntity들을 찾거나 새로 생성
 		List<TagEntity> tags = new ArrayList<>();
@@ -89,22 +88,18 @@ public class PostServiceImpl implements PostService {
 				tagEntity = new TagEntity();
 				tagEntity.setTagName(tagDto.getName());
 				tagEntity = tagRepository.save(tagEntity); // 새로 생성된 태그 저장
-				System.out.println("[[PostService]] tag 생성완료!");
 			}
 			tags.add(tagEntity);
-			System.out.println("[[PostService]] tag 리스트: " + tags.toString());
 		}
 		
 		// 이미지 ID를 통해 ImgEntity 조회
 		ImgEntity imgEntity = imgRepository.findById(dto.getImgId())
 				.orElseThrow(() -> new RuntimeException("Image not found"));
-		System.out.println("{{POSTSERVICE IMGENTITY}} : " + imgEntity.getFilePath());
+		
 		// PostEntity 생성
 		PostEntity postEntity = toEntity(dto, foundMember, tags, null, imgEntity);
-		System.out.println("[[PostService]] postEntity: " + postEntity.toString());
 
 		PostEntity result = postRepository.save(postEntity);
-		System.out.println("[[PostService]] postEntity SAVE DB ");
 		return result.getPostId(); // 몇번째인지 return
 	}
 
@@ -157,7 +152,6 @@ public class PostServiceImpl implements PostService {
 		Optional<PostEntity> postEntity = postRepository.findById(postId);
 		if (postEntity.isPresent()) {
 			postRepository.deleteById(postId); // 게시글 삭제
-			System.out.println("[[PostService]] 게시글 삭제 완료: " + postId);
 		} else {
 			throw new RuntimeException("게시글이 존재하지 않습니다."); // 게시글이 없을 경우 예외 처리
 		}
@@ -249,9 +243,7 @@ public class PostServiceImpl implements PostService {
 		int size = pageRequestDto.getSize();
 
 		Page<PostEntity> postEntities = postRepository.findByMember_MemberId(memberId, PageRequest.of(page, size));
-		System.out.println("#####[postService] postEntities done" + postEntities.toString());
 		List<PostDto> postDtos = postEntities.getContent().stream().map(this::toDto).collect(Collectors.toList());
-		System.out.println("#####[postService] postDtos done" + postDtos.toString());
 		return PageResponseDto.<PostDto>withAll().dtoList(postDtos).pageRequestDto(pageRequestDto)
 				.total(postEntities.getTotalElements()).build();
 	}

@@ -43,17 +43,6 @@ public class MissionServiceImpl implements MissionService {
 		return missionEntity.getMissionId();
 	}
 
-	// @Override
-	// public byte[] downLoadImageFileSystem(int missionId) throws IOException{
-	// MissionEntity mission = missionRepository.findById(missionId).orElseThrow();
-//
-//		String filePath = mission.getImg();
-//
-//		System.out.println("download fileData : " + filePath);
-//
-//		return Files.readAllBytes(new File(filePath).toPath());
-//	}
-
 	@Override
 	public List<MissionEntity> findAll() {
 		return missionRepository.findAll();

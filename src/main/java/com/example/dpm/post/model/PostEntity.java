@@ -8,7 +8,6 @@ import com.example.dpm.member.model.MemberEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,7 +37,6 @@ public class PostEntity {
 	@Column(nullable = false)
 	private LocalDate postDate;
 
-//	@OneToOne(cascade = CascadeType.ALL, optional = false) // 이미지 필드를 반드시 요구
     @OneToOne
 	@JoinColumn(name = "img_id", nullable = false) // 외래 키 설정
     private ImgEntity img; // 이미지 엔티티

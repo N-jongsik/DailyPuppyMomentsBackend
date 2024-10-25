@@ -18,7 +18,6 @@ import lombok.RequiredArgsConstructor;
 public class PuppyServiceImpl implements PuppyService {
 	private final PuppyRepository puppyRepository;
 	private final MemberRepository memberRepository;
-	// private final PuppyImgRepository puppyImgRepository;
 
 	@Override // 한마리 정보 조회
 	public PuppyDto get(int puppyId) {
@@ -33,12 +32,6 @@ public class PuppyServiceImpl implements PuppyService {
 		Long memberId = dto.getMemberId();
 		Optional<MemberEntity> memberOptional = memberRepository.findById(memberId);
 		MemberEntity member = memberOptional.orElseThrow();
-//				-> new RuntimeException("Member not found")); // 오류 처리 추가
-
-//		PuppyImgEntity puppyImgEntity = puppyImgRepository.findById(dto.getImgId())
-//				.orElseThrow(() -> new RuntimeException("img not found"));
-
-		// PuppyEntity puppyEntity = toEntity(dto, member, puppyImgEntity);
 
 		PuppyEntity puppyEntity = toEntity(dto, member);
 

@@ -55,5 +55,4 @@ public class SecurityConfig {
 		// 아래 url은 filter 에서 제외
 		return web -> web.ignoring().requestMatchers("/**");
 	}
-	// "/login/**", "/token/refresh","todo/**"
 }

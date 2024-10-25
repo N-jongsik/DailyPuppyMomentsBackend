@@ -13,9 +13,6 @@ import com.example.dpm.mission.model.MissionImgEntity;;
 public interface MissionService {
 	public MissionDto getCompleteMission(int missionId);
 
-	// public String AddMissionImg(MultipartFile image, MissionDto missionDto)
-	// throws IOException;
-	// public byte[] downLoadImageFileSystem(int missionId) throws IOException;
 	public List<MissionEntity> findAll();
 
 	// Entity to DTO

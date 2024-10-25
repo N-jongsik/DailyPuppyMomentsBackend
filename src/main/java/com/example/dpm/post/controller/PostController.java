@@ -59,52 +59,14 @@ public class PostController {
 	// 게시물 생성
 	@PostMapping("/")
 	public ResponseEntity<Integer> createPost(@Validated @RequestBody PostDto postDto) {
-		System.out.println("||||||||PostController_create_memID: " + postDto.getMemberId());
 		Integer postId = postService.create(postDto);
-		System.out.println("||||||||PostController_create_postId: " + postId);
 		return ResponseEntity.ok(postId); // 생성된 게시물 ID 반환
 	}
-
-//	// 게시물 생성
-//	@PostMapping("/")
-//	public ResponseEntity<Integer> createPost(
-//			@Validated @RequestPart("postDto") PostDto postDto,
-//			@RequestPart(value = "image") MultipartFile image) throws IOException {
-//		 // 이미지 파일을 저장하고 파일 경로를 DTO에 설정
-//        if (image != null && !image.isEmpty()) {
-//            String imagePath = saveImage(image);
-//            postDto.setImg(imagePath); // DTO에 이미지 경로 저장
-//        }
-//        
-//        System.out.println("[[PostController create flag1]]");
-//        
-//        // 서비스 계층에서 게시물 생성 처리
-//        Integer postId = postService.create(postDto);
-//        
-//        System.out.println("[[PostController create flag2]]" + postId);
-//        // 결과 반환
-//        return new ResponseEntity<>(postId, HttpStatus.CREATED);
-//	}
-
-	// 이미지 저장 메서드
-//    private String saveImage(MultipartFile image) throws IOException {
-//        String originalFilename = image.getOriginalFilename();
-//        String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
-//        String uniqueFileName = UUID.randomUUID().toString() + extension;
-//        String fullPath = FOLDER_PATH + uniqueFileName;
-//        System.out.println("[[PostController saveImage flag3]]" + fullPath);
-//        // 이미지 파일을 저장
-//        File dest = new File(fullPath);
-//        image.transferTo(dest);
-//        System.out.println("[[PostController saveImage flag3]]" + fullPath);
-//        return fullPath; // 파일 경로 반환
-//    }
 
 	// 게시물 조회
 	@GetMapping("/{postId}")
 	public ResponseEntity<PostDto> getPost(@PathVariable("postId") int postId) {
 		PostDto postDto = postService.get(postId);
-		System.out.println("||||||||PostController_get_postTitle: " + postDto.getTitle());
 		return ResponseEntity.ok(postDto); // 게시물 데이터 반환
 	}
 
@@ -113,10 +75,8 @@ public class PostController {
 	public ResponseEntity<Void> modifyPost(@PathVariable("postId") int postId, @RequestBody PostDto postDto) {
 		// 수정하려는 게시글의 ID를 DTO에 설정
 		postDto.setPostId(postId);
-		System.out.println("||||||||PostController_modify_postTitle: " + postDto.getTitle());
 		// 게시물 수정
 		postService.modify(postDto);
-		System.out.println("||||||||PostController_modify_postTitle: " + postDto.getTitle());
 		// 204 No Content 반환 (수정 성공)
 		return ResponseEntity.noContent().build();
 	}
@@ -127,13 +87,6 @@ public class PostController {
 		postService.toggleLike(postId);
 		return new ResponseEntity<>("Like status updated.", HttpStatus.OK);
 	}
-
-	// 전체 게시글 조회 for test
-//	@GetMapping("/list")
-//	public ResponseEntity<List<PostDto>> getAllPosts() {
-//		List<PostDto> posts = postService.getAllPosts();
-//		return ResponseEntity.ok(posts); // 게시글 리스트 반환
-//	}
 
 	// 페이지네이션된 게시물 리스트 조회 for test
 	@GetMapping("/list")
