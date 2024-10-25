@@ -272,9 +272,15 @@ public class PostServiceImpl implements PostService {
 				.collect(Collectors.toList());
 
 		List<CommentDto> comments = entity.getComments().stream()
-				.map(comment -> new CommentDto(comment.getCommentId(), comment.getMember().getMember_id(),
-						comment.getPost().getPostId(), comment.getContent(), comment.getCommentDate()))
-				.collect(Collectors.toList());
+	            .map(comment -> new CommentDto(
+	                    comment.getCommentId(),
+	                    comment.getMember().getMember_id(),
+	                    comment.getPost().getPostId(),
+	                    comment.getContent(),
+	                    comment.getCommentDate(),
+	                    comment.getMember().getNickname()
+	            ))
+	            .collect(Collectors.toList());
 
 		return PostDto.builder().postId(entity.getPostId()).memberId(entity.getMember().getMember_id())
 				.title(entity.getTitle()).content(entity.getContent()).postDate(entity.getPostDate()).imgId(entity.getImg().getImgId())
