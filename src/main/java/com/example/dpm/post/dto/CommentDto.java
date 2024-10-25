@@ -18,4 +18,6 @@ public class CommentDto {
     private int postId;            // 게시물 ID
     private String content;        // 댓글 내용
     private LocalDate commentDate; // 댓글 작성 날짜
+    
+    private String memberName;	//댓글 작성자   
 }
