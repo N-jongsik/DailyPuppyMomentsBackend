@@ -71,7 +71,7 @@ public class PostServiceImpl implements PostService {
 
 	@Transactional
 	@Override
-	public Integer create(PostDto dto) {
+	public int create(PostDto dto) {
 		Optional<MemberEntity> member = memberRepository.findById(dto.getMemberId());
 		MemberEntity foundMember = member.orElseThrow();
 		System.out.println("[[PostService]] foundMember: " + foundMember.toString());
