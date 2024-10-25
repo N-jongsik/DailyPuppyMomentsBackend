@@ -1,7 +1,9 @@
 package com.example.dpm.puppy.controller;
 
+
 import java.io.IOException;
 import java.util.List;
+
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -12,14 +14,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.example.dpm.puppy.dto.PuppyDto;
+
 import com.example.dpm.puppy.dto.PuppyWeightDto;
 import com.example.dpm.puppy.model.PuppyImgEntity;
 import com.example.dpm.puppy.service.PuppyImgService;
+
 import com.example.dpm.puppy.service.PuppyService;
 import com.example.dpm.puppy.service.PuppyWeightService;
 
@@ -31,7 +33,7 @@ import lombok.RequiredArgsConstructor;
 public class PuppyController {
 	final PuppyService puppyService;
 
-	final PuppyImgService puppyImgService;
+	// final PuppyImgService puppyImgService;
 
 	final PuppyWeightService puppyWeightService;
 
@@ -49,16 +51,16 @@ public class PuppyController {
 	}
 
 	// 이미지 저장
-	@PostMapping("/puppy/img")
-	public ResponseEntity<String> uploadImage(@RequestPart(value = "image") MultipartFile image) {
-		try {
-			PuppyImgEntity imgEntity = puppyImgService.uploadImage(image);
-			return ResponseEntity.status(HttpStatus.CREATED).body(imgEntity.getImgId().toString());
-		} catch (IOException e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.body("Image upload failed: " + e.getMessage());
-		}
-	}
+//	@PostMapping("/puppy/img")
+//	public ResponseEntity<String> uploadImage(@RequestPart(value = "image") MultipartFile image) {
+//		try {
+//			PuppyImgEntity imgEntity = puppyImgService.uploadImage(image);
+//			return ResponseEntity.status(HttpStatus.CREATED).body(imgEntity.getImgId().toString());
+//		} catch (IOException e) {
+//			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//					.body("Image upload failed: " + e.getMessage());
+//		}
+//	}
 
 	// 하나 자체를 생성
 	@PostMapping("/puppy")

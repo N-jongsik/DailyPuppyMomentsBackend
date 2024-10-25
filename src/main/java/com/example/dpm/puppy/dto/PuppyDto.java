@@ -16,6 +16,7 @@ public class PuppyDto {
 	private Long memberId; // Decoupled member reference by storing only memberId
 	private String name;
 	private LocalDate birth;
-	private Integer imgId;
-	private Double weight; //몸무게 필드 추가
+	private int weightId;
+	// private Integer imgId;
+	private String img;
 }
