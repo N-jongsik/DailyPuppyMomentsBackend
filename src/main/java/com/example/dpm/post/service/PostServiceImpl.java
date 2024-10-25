@@ -285,7 +285,7 @@ public class PostServiceImpl implements PostService {
 		return PostDto.builder().postId(entity.getPostId()).memberId(entity.getMember().getMember_id())
 				.title(entity.getTitle()).content(entity.getContent()).postDate(entity.getPostDate()).imgId(entity.getImg().getImgId())
 				.emoji(entity.getEmoji()).totalLikeHeart(entity.getTotalLikeHeart()).myLikeHeart(entity.isMyLikeHeart())
-				.tags(tags).comments(comments).build();
+				.tags(tags).comments(comments).memberName(entity.getMember().getNickname()).build();
 	}
 
 }
