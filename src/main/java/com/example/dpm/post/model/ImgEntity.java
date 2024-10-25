@@ -22,7 +22,7 @@ import lombok.Setter;
 public class ImgEntity {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer imgId;
+    private int imgId;
 
     private String filePath; // 이미지 파일 경로
     

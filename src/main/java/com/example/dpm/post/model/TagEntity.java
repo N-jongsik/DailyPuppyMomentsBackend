@@ -19,7 +19,7 @@ import lombok.Setter;
 public class TagEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer tagId;
+    private int tagId;
 
     @Column(nullable = false, unique = true)
     private String tagName; // 태그 이름, 예: "technology", "science"

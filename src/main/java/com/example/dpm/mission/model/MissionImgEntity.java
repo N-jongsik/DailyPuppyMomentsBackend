@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 public class MissionImgEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer imgId;
+	private int imgId;
 
 	private String filePath;
 

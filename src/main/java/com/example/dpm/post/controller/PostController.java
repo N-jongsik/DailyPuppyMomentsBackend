@@ -47,13 +47,12 @@ public class PostController {
 	// 사진 업로드 완료 버튼에 적용 시킬 api
 	// 사진 url string으로 변환하는 controller
 	@PostMapping("/img")
-	public ResponseEntity<Integer> uploadImage(@RequestPart(value = "image") MultipartFile image) {
+	public int uploadImage(@RequestPart(value = "image") MultipartFile image) {
         try {
             ImgEntity imgEntity = imgService.uploadImage(image);
-            return ResponseEntity.status(HttpStatus.CREATED).body(imgEntity.getImgId());
+            return imgEntity.getImgId();
         } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(0);
+            return -1;
         }
     }
 

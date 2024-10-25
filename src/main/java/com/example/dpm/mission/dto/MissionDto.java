@@ -14,6 +14,6 @@ import lombok.NoArgsConstructor;
 public class MissionDto {
 	private int missionId;
 	private Long memberId; // Member reference by memberId
-	private Integer imgId;
+	private int imgId;
 	private LocalDate missionDate;
 }
