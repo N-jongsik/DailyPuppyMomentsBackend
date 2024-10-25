@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 public class PuppyImgDto {
-	private Integer imgId;
+	private int imgId;
 	
 	private String filePath;
 }

@@ -38,13 +38,13 @@ public class MissionController {
 
 	// 이미지 업로드
 	@PostMapping("/mission/img")
-	public ResponseEntity<String> uploadImage(@RequestPart(value = "image") MultipartFile image) {
+	public ResponseEntity<Integer> uploadImage(@RequestPart(value = "image") MultipartFile image) {
 		try {
 			MissionImgEntity imgEntity = missionImgService.uploadImage(image);
-			return ResponseEntity.status(HttpStatus.CREATED).body(imgEntity.getImgId().toString());
+			return ResponseEntity.status(HttpStatus.CREATED).body(imgEntity.getImgId());
 		} catch (IOException e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.body("Image upload failed: " + e.getMessage());
+					.body(0);
 		}
 	}
 

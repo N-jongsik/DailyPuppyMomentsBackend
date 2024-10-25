@@ -23,7 +23,7 @@ import lombok.Setter;
 public class PostEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer postId;
+	private int postId;
 
 	@ManyToOne
 	@JoinColumn(name = "member_id")
@@ -47,7 +47,7 @@ public class PostEntity {
 	private String emoji;
 
 	@Column(nullable = false)
-	private Integer totalLikeHeart = 0; // 총 좋아요 수
+	private int totalLikeHeart = 0; // 총 좋아요 수
 
 	@Column(nullable = false)
 	private boolean myLikeHeart = false; // 내가 좋아요를 눌렀는지 여부
@@ -56,8 +56,7 @@ public class PostEntity {
 	@ManyToMany
 	@JoinTable(name = "post_tags", // 중간 테이블 이름
 			joinColumns = @JoinColumn(name = "post_id"), // 게시글의 외래 키
-			inverseJoinColumns = @JoinColumn(name = "tag_id") // 태그의 외래 키
-	)
+			inverseJoinColumns = @JoinColumn(name = "tag_id"))// 태그의 외래 키
 	private List<TagEntity> tags; //post하나에 여러 태그. 태그하나에 여러 태그.
 	
 	// 댓글과의 일대다 관계 설정

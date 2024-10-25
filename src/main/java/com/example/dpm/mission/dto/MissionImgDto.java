@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class MissionImgDto {
-	private Integer imgId;
+	private int imgId;
 
 	private String filePath;
 }
