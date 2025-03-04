@@ -132,7 +132,7 @@
 ---
 
 ### 메인 페이지
-<img width="1512" alt="스크린샷 2024-11-03 17 34 55" src="https://github.com/user-attachments/assets/6d61653f-ea22-4be2-86b2-cb9d1dedeadb">
+![메인 페이지](https://github.com/N-jongsik/DailyPuppyMomentsBackend/blob/main/KakaoTalk_20250304_005753296.gif)
 
 ---
 
@@ -142,13 +142,12 @@
 ---
 
 ### 미션 페이지
-<img width="1512" alt="스크린샷 2024-11-03 17 44 23" src="https://github.com/user-attachments/assets/c92b4c79-eca4-47de-a356-1f503ff0c0c0">
-<img width="1512" alt="스크린샷 2024-11-03 17 44 46" src="https://github.com/user-attachments/assets/c7303c30-1311-4e5b-8010-127936ec17c2">
+![메인 페이지](https://github.com/N-jongsik/DailyPuppyMomentsBackend/blob/main/KakaoTalk_20250304_005753296_02.gif)
 
 ---
 
 ### 경매 페이지
-<img width="1512" alt="스크린샷 2024-11-03 17 39 18" src="https://github.com/user-attachments/assets/47520fce-231e-491d-b006-44e12693c2ca">
+![메인 페이지](https://github.com/N-jongsik/DailyPuppyMomentsBackend/blob/main/KakaoTalk_20250304_005753296_03.gif)
 
 ---
 
@@ -158,9 +157,9 @@
 ---
 
 ### 일정관리
-<img width="1512" alt="스크린샷 2024-11-03 17 41 00" src="https://github.com/user-attachments/assets/d49df470-9a47-4a4d-b999-b0b0063107d8">
+![메인 페이지](https://github.com/N-jongsik/DailyPuppyMomentsBackend/blob/main/KakaoTalk_20250304_005753296_04.gif)
 
 ---
 
 ### 게시글 좋아요 및 댓글
-<img width="1512" alt="스크린샷 2024-11-03 17 41 27" src="https://github.com/user-attachments/assets/55c15973-f3f6-4061-ad38-b7ab93e4e6db">
+![설명 텍스트](https://github.com/N-jongsik/DailyPuppyMomentsBackend/blob/main/KakaoTalk_20250304_005753296_01.gif)
